@@ -1968,6 +1968,54 @@ OpenCode Zen is a list of tested and verified models provided by the OpenCode te
 
 ---
 
+### Phoenix Grove
+
+Phoenix Grove serves curated open weight models such as GLM, DeepSeek, Kimi, Qwen, and MiMo through an OpenAI-compatible API on zero retention US infrastructure, with context windows up to 1M tokens.
+
+1. Head over to the [Phoenix Grove portal](https://api.pgsgrove.com), create an API key, and copy it.
+
+2. Set the key in your environment.
+
+   ```txt
+   export PGS_API_KEY=pgsk_...
+   ```
+
+3. Add the provider to your OpenCode config.
+
+   ```json title="opencode.json"
+   {
+     "$schema": "https://opencode.ai/config.json",
+     "provider": {
+       "pgsgrove": {
+         "npm": "@ai-sdk/openai-compatible",
+         "name": "Phoenix Grove",
+         "options": {
+           "baseURL": "https://api.pgsgrove.com/v1",
+           "apiKey": "{env:PGS_API_KEY}"
+         },
+         "models": {
+           "glm-5.3": { "name": "GLM 5.3", "limit": { "context": 1048576 } },
+           "glm-5.3-flash": { "name": "GLM 5.3 Flash", "limit": { "context": 1048576 } },
+           "deepseek-v4.1-flash": { "name": "DeepSeek V4.1 Flash", "limit": { "context": 1048576 } },
+           "kimi-k2.7": { "name": "Kimi K2.7 Code", "limit": { "context": 262144 } },
+           "mimo-v2.6-pro": { "name": "MiMo V2.6 Pro", "limit": { "context": 1048576 } },
+           "qwen-3.8-2.4t": { "name": "Qwen3.8 2.4T", "limit": { "context": 262144 } }
+         }
+       }
+     }
+   }
+   ```
+
+   Any model id from the [models endpoint](https://api.pgsgrove.com/v1/models) works in the `models` map; the full catalog with per token pricing and context windows is at [api.pgsgrove.com/models](https://api.pgsgrove.com/models).
+
+4. Run the `/models` command to select the one you want.
+
+   ```txt
+   /models
+   ```
+
+---
+
 ### Poolside
 
 [Poolside](https://poolside.ai) provides access to its models through an OpenAI-compatible API.
